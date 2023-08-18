@@ -5,15 +5,20 @@ import ProductScreens from './src/data/screens/ProductsScreen';
 import ProductDetailsScreen from './src/data/screens/ProductDetailsScreen';
 import ShoppingCart from './src/data/screens/ShoppingCart';
 import Navigation from './src/navigation';
+import { Provider } from 'react-redux';
+import store from './src/store/store';
 const App = () => {
 
   return (
-    <View style={styles.container}>
-      {/* <ProductScreens/> */}
-      {/* <ProductDetailsScreen/>  */}
-      {/* <ShoppingCart/>  */}
-      <Navigation />
-    </View>
+    <Provider store={store}>
+      <View style={styles.container}>
+        {/* <ProductScreens/> */}
+        {/* <ProductDetailsScreen/>  */}
+        {/* <ShoppingCart/>  */}
+        <Navigation />
+      </View>
+
+    </Provider>
 
 
   )

@@ -2,9 +2,11 @@ import { StyleSheet, View, Image, FlatList, useWindowDimensions, Text, ScrollVie
 import products from '../products.json';
 import { useNavigation } from "@react-navigation/native";
 
+import { useSelector, useDispatch } from 'react-redux';
+
 const ProductDetailsScreen = ({navigation}) => {
     // const navigation= useNavigation()  // another way without using navigatin as a props
-    const product = products[1];
+    const product = useSelector(state=>state.productss.selectedProduct)
     const { width } = useWindowDimensions();
     return (
         <View>
