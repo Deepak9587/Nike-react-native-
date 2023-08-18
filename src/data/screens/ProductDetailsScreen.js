@@ -1,7 +1,9 @@
 import { StyleSheet, View, Image, FlatList, useWindowDimensions, Text, ScrollView,Pressable, TouchableOpacity } from "react-native";
 import products from '../products.json';
+import { useNavigation } from "@react-navigation/native";
 
-const ProductDetailsScreen = () => {
+const ProductDetailsScreen = ({navigation}) => {
+    // const navigation= useNavigation()  // another way without using navigatin as a props
     const product = products[1];
     const { width } = useWindowDimensions();
     return (
@@ -32,6 +34,7 @@ const ProductDetailsScreen = () => {
             <TouchableOpacity style={styles.button}
                 onPress={()=>{
                     console.log("added in cart");
+                    navigation.navigate("shopping cart")
                 }}>
                 <Text style={styles.buttonText}> ADD TO CART</Text>
             </TouchableOpacity>

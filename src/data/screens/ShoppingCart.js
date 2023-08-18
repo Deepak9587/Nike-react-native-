@@ -9,7 +9,7 @@ const ShoppingCartTotal = () => (
     <View style={styles.totalContainer}>
         <View style={styles.row}>
             <Text style={styles.text}>Subtotal</Text>
-            <Text style={styles.text}>Rs 2345653233</Text>
+            <Text style={styles.text}>Rs 2434943</Text>
         </View>
         <View style={styles.row}>
             <Text style={styles.text}>Delivery</Text>
@@ -17,12 +17,12 @@ const ShoppingCartTotal = () => (
         </View>
         <View style={styles.row}>
             <Text style={styles.textBold}>Total</Text>
-            <Text style={styles.textBold}>Rs 2345653344</Text>
+            <Text style={styles.textBold}>Rs 2345654</Text>
         </View>
     </View>
 
 )
-const ShoppingCart = () => {
+const ShoppingCart = ({navigation}) => {
 
     return (
         <>
