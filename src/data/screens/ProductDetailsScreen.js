@@ -1,18 +1,19 @@
-import { StyleSheet, View, Image, FlatList, useWindowDimensions, Text, ScrollView,Pressable, TouchableOpacity } from "react-native";
-import products from '../products.json';
-import { useNavigation } from "@react-navigation/native";
+import { StyleSheet, View, Image, FlatList, useWindowDimensions, Text, ScrollView, TouchableOpacity } from "react-native";
+// import products from '../products.json';            //no need  of this bcz we use  useSelecter(global statement)where product is store
 
 import { useSelector, useDispatch } from 'react-redux';
+import { CartSlice } from "../../store/cartSlice";
 
 const ProductDetailsScreen = ({navigation}) => {
     // const navigation= useNavigation()  // another way without using navigatin as a props
     const product = useSelector(state=>state.productss.selectedProduct)
     const { width } = useWindowDimensions();
+    const dispatch =useDispatch();
     return (
         <View>
             <ScrollView>
                 <FlatList
-                    data={product.images}
+                    data={product?.images}
                     renderItem={({ item }) => (
                         <Image
                             source={{ uri: item }}
@@ -25,18 +26,19 @@ const ProductDetailsScreen = ({navigation}) => {
 
 
                 <View style={{ padding: 20 }}>
-                    <Text style={styles.title}>{product.name}</Text>
+                    <Text style={styles.title}>{product?.name}</Text>
 
-                    <Text style={styles.price}>{product.price}</Text>
+                    <Text style={styles.price}>{product?.price}</Text>
 
-                    <Text style={styles.description}>{product.description}</Text>
+                    <Text style={styles.description}>{product?.description}</Text>
                 </View>
             </ScrollView>
 
             <TouchableOpacity style={styles.button}
                 onPress={()=>{
                     console.log("added in cart");
-                    navigation.navigate("shopping cart")
+                    dispatch(CartSlice.actions.addCartItem({product:product}))
+                    // navigation.navigate("shopping cart")
                 }}>
                 <Text style={styles.buttonText}> ADD TO CART</Text>
             </TouchableOpacity>

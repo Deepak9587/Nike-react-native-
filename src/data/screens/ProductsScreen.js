@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, StyleSheet, Text, View, Image, FlatList, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Image, FlatList, TouchableOpacity } from 'react-native';
 // import products from '../products.json';      //   in place of this we can use global statement also throu useSlecetor
 
 

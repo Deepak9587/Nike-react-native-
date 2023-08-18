@@ -1,34 +1,42 @@
 
 
 import { Text, FlatList, View, StyleSheet, TouchableOpacity } from "react-native"
-import cart from "../cart"
+// import cart from "../cart"                // can use Selector instead of importing this component
 import CartListItem from "../../components/CartListItem"
+import { useSelector } from 'react-redux';
+import { selectDeliveryPrice, selectSubTotal, selectTotal } from "../../store/cartSlice";
 
 
-const ShoppingCartTotal = () => (
-    <View style={styles.totalContainer}>
-        <View style={styles.row}>
-            <Text style={styles.text}>Subtotal</Text>
-            <Text style={styles.text}>Rs 2434943</Text>
+const ShoppingCartTotal = () => {
+    const subTotal=useSelector(selectSubTotal)
+    const deliveryfee= useSelector(selectDeliveryPrice)
+    const total=useSelector(selectTotal);
+    return (
+        <View style={styles.totalContainer}>
+            <View style={styles.row}>
+                <Text style={styles.text}>Subtotal</Text>
+                <Text style={styles.text}>Rs {subTotal}</Text>
+            </View>
+            <View style={styles.row}>
+                <Text style={styles.text}>Delivery</Text>
+                <Text style={styles.text}>Rs {deliveryfee}</Text>
+            </View>
+            <View style={styles.row}>
+                <Text style={styles.textBold}>Total</Text>
+                <Text style={styles.textBold}>Rs {total}</Text>
+            </View>
         </View>
-        <View style={styles.row}>
-            <Text style={styles.text}>Delivery</Text>
-            <Text style={styles.text}>Rs 999</Text>
-        </View>
-        <View style={styles.row}>
-            <Text style={styles.textBold}>Total</Text>
-            <Text style={styles.textBold}>Rs 2345654</Text>
-        </View>
-    </View>
 
-)
-const ShoppingCart = ({navigation}) => {
+    )
+}
+const ShoppingCart = ({ navigation }) => {
+    const cartItems = useSelector(state => state.cart.items)
 
     return (
         <>
 
             <FlatList
-                data={cart}
+                data={cartItems}
                 renderItem={({ item }) => <CartListItem cartItem={item} />}
                 ListFooterComponent={ShoppingCartTotal}
             />
