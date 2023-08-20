@@ -3,12 +3,16 @@ import { StyleSheet, View, Image, FlatList, useWindowDimensions, Text, ScrollVie
 
 import { useSelector, useDispatch } from 'react-redux';
 import { CartSlice } from "../../store/cartSlice";
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import React, { useState } from 'react';
 
-const ProductDetailsScreen = ({navigation}) => {
+
+const ProductDetailsScreen = ({ navigation }) => {
     // const navigation= useNavigation()  // another way without using navigatin as a props
-    const product = useSelector(state=>state.productss.selectedProduct)
+    const product = useSelector(state => state.productss.selectedProduct)
     const { width } = useWindowDimensions();
-    const dispatch =useDispatch();
+    const dispatch = useDispatch();
+    const [isFavourite, setIsFavourite] = useState(false);
     return (
         <View>
             <ScrollView>
@@ -31,17 +35,40 @@ const ProductDetailsScreen = ({navigation}) => {
                     <Text style={styles.price}>{product?.price}</Text>
 
                     <Text style={styles.description}>{product?.description}</Text>
+                    <Text style={{ color: 'grey', fontSize: 15 }}>View Product Details </Text>
                 </View>
+
+                <View style={{ borderBlockColor: "gray", borderWidth: 1, margin: 10 }} />
+                <TouchableOpacity style={styles.button2}
+                // onPress={() => {
+                // }}
+                >
+                    <Text style={{ color: 'black', fontWeight: '500', fontSize: 20 }}>Select Size</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.button}
+                    onPress={() => {
+                        console.log("added in cart");
+                        dispatch(CartSlice.actions.addCartItem({ product: product }))
+                        // navigation.navigate("shopping cart")
+                    }}>
+                    <Text style={styles.buttonText}> Add to Bag</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.button2}
+                    onPress={() => {
+                        setIsFavourite(!isFavourite);
+                    }}
+                >
+                    <View style={{ flexDirection: "row" ,alignSelf:'center'}}>
+                        <Text style={{ color: 'black', fontWeight: '500', fontSize: 20 }}>Favourite </Text>
+                        <View style={{marginTop:4}}>
+                        {isFavourite ? <FontAwesome5 name={'heart'} solid size={24} color="gray"/>
+                            : <FontAwesome5 name={'heart'} size={20} color="gray" />}
+                        </View>
+                    </View>
+                </TouchableOpacity>
+
             </ScrollView>
 
-            <TouchableOpacity style={styles.button}
-                onPress={()=>{
-                    console.log("added in cart");
-                    dispatch(CartSlice.actions.addCartItem({product:product}))
-                    // navigation.navigate("shopping cart")
-                }}>
-                <Text style={styles.buttonText}> ADD TO CART</Text>
-            </TouchableOpacity>
             {/* Add to cart button */}
 
             {/* Navigation icon */}
@@ -69,21 +96,32 @@ const styles = StyleSheet.create({
         lineHeight: 30,
         fontWeight: "300",
     },
-    button:{
-        position:'absolute',
-        backgroundColor:'black',
-        bottom:30,
-        width:'90%',
-        alignSelf:'center',
-        padding:20,
-        borderRadius:30,
-        alignItems:'center',
+    button: {
+        backgroundColor: 'black',
+        marginBottom: 10,
+        width: '90%',
+        alignSelf: 'center',
+        padding: 20,
+        borderRadius: 30,
+        alignItems: 'center',
     },
-    buttonText:{
-        color:'white',
-        fontWeight:'500',
-        fontSize:16
+    button2: {
+        marginBottom: 10,
+        borderWidth: 1,
+        borderColor: 'grey',
+        width: '90%',
+        alignSelf: 'center',
+        padding: 15,
+        borderRadius: 30,
+        alignItems: 'center',
     },
+
+    buttonText: {
+        color: 'white',
+        fontWeight: '500',
+        fontSize: 16
+    },
+
 })
 
 export default ProductDetailsScreen;

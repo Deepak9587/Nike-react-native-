@@ -3,8 +3,8 @@ import { createSlice ,createSelector } from '@reduxjs/toolkit'
 
 const initialState = {
     items: [],
-    deliveryFee: 15,
-    freeDeliveryFrom: 200,
+    deliveryFee: 999,
+    freeDeliveryFrom: 100000,
 };
 
 
@@ -23,18 +23,16 @@ export const CartSlice = createSlice({
             }
             else {
                 state.items.push({ product: newProduct, quantity: 1 });
-                console.log("after are:  ", state.items);
+                // console.log("after are:  ", state.items);
 
             }
         },
         changeQuantity: (state, action) => {
             const { productId, amount } = action.payload;
-            console.log("product id          ", amount);
-            console.log("items:         ", state.items);
-
-
+            // console.log("product id          ", amount);
+            // console.log("items:         ", state.items);
             const cartItem = state.items.find((item) => item.product.id === productId);
-            console.log("cartItem reurn :    ", cartItem);
+            // console.log("cartItem reurn :    ", cartItem);
             if (cartItem) {
                 cartItem.quantity += amount
             }
@@ -47,7 +45,11 @@ export const CartSlice = createSlice({
     }
 
 })
-export const selectedNumberOfItems = (state) => state.cart.items.length;
+export const selectedNumberOfItems = (state) =>{
+//  state.cart.items.length;                     // is only giving the no. of different shoes you added in cart
+return state.cart.items.reduce((totalQuantity, item) => totalQuantity +  item.quantity, 0);   // it is showing the overall cart quantity 
+
+}
 export const selectSubTotal = (state) =>
     state.cart.items.reduce((sum, cartItem) => sum + cartItem.product.price * cartItem.quantity, 0); // here reduce is a javascript function , not a redux reducer
 
