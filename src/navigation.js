@@ -29,8 +29,8 @@ const Navigation = () => {
                 return (
                   <View style={{flexDirection:'row'}}>
                     <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => navigation.navigate("shopping cart")}>
-                      <Feather name="shopping-cart" size={24} color="gray" />
-                      <Text style={{ marginLeft: 5, fontWeight: '500' }}>{numberOfItems}</Text>
+                      <Feather name="shopping-bag" size={24} color="gray" />
+                      <Text style={{ marginLeft: 3, fontWeight: '500' ,justifyContent:'center'}}>{numberOfItems}</Text>
                     </TouchableOpacity>
                   </View>
 
@@ -42,9 +42,9 @@ const Navigation = () => {
           <Stack.Screen options={({ navigation }) => ({
             presentation: 'modal', headerShown: true,
             headerRight: () =>
-              <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => navigation.navigate("shopping cart")}>
-                <Feather name="shopping-cart" size={24} color="gray" />
-                <Text style={{ marginLeft: 5, fontWeight: '500' }}>{numberOfItems}</Text>
+              <TouchableOpacity style={{ flexDirection: 'row',}} onPress={() => navigation.navigate("shopping cart")}>
+                <Feather name="shopping-bag" size={24} color="gray" />
+                <Text style={{ marginLeft: 3, justifyContent:'center',fontWeight: '500' }}>{numberOfItems}</Text>
               </TouchableOpacity>
           })} name="product details" component={ProductDetailsScreen}
           />

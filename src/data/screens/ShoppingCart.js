@@ -15,15 +15,18 @@ const ShoppingCartTotal = () => {
         <View style={styles.totalContainer}>
             <View style={styles.row}>
                 <Text style={styles.text}>Subtotal</Text>
-                <Text style={styles.text}>Rs {subTotal}</Text>
+                <Text style={styles.text}>Rs {subTotal}.00</Text>
             </View>
             <View style={styles.row}>
                 <Text style={styles.text}>Delivery</Text>
-                <Text style={styles.text}>Rs {deliveryfee}</Text>
+                <Text style={styles.text}>Rs {deliveryfee}.00</Text>
             </View>
             <View style={styles.row}>
-                <Text style={styles.textBold}>Total</Text>
-                <Text style={styles.textBold}>Rs {total}</Text>
+                <Text style={styles.textBold}>Estimated Total </Text>
+                <Text style={styles.textBold}>Rs {total}.00</Text>
+            </View>
+            <View>
+            <Text style={styles.textBold}>(incl. of taxes)</Text>
             </View>
         </View>
 
@@ -73,7 +76,7 @@ const styles = StyleSheet.create({
     textBold: {
         fontSize: 16,
         fontWeight: '500',
-        color: 'grey'
+        color: 'black'
     },
     button: {
         position: 'absolute',

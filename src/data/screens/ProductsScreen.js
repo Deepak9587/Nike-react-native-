@@ -39,7 +39,7 @@ const ProductScreens = ({ navigation }) => {
                 dispatch(productsSlice.actions.setSelectedProduct(item.id))
                 navigation.navigate("product details")
               }}>
-              <Image source={{ uri: item.image }} style={styles.image} />
+              <Image source={{ uri: item.image }} style={[styles.image,{borderRadius:10}]} />
               <View style={styles.view}>
                 {item.price > 45000 ? <Text style={[{ color: 'red', fontSize: 13 }]}>Bestseller</Text> : null}
                 <Text style={[styles.text, { color: 'black' }]}>{item.name}</Text>
@@ -50,7 +50,7 @@ const ProductScreens = ({ navigation }) => {
             <TouchableOpacity style={styles.favouriteBtn}
               onPress={() => dispatch(favouritesSlice.actions.updateFavourite(item.id))}
             >
-              <View style={{ marginTop: 6, marginLeft: 5 }}>
+              <View style={{ marginTop: 6, marginLeft: 5,}}>
                 {favourites[item.id] ? <FontAwesome5 name={'heart'} solid size={22} color="#A52A2A" />
                   : <FontAwesome5 name={'heart'} size={20} color="gray" />}
               </View>
@@ -69,7 +69,7 @@ const ProductScreens = ({ navigation }) => {
 const styles = StyleSheet.create({
 
   image: { width: '100%', aspectRatio: 1 },
-  itemContainer: { width: "50%", padding: 2 },
+  itemContainer: { width: "50%", padding: 2,marginTop:5 },
   text: {
     fontSize: 16,
     color: 'grey',
@@ -87,6 +87,7 @@ const styles = StyleSheet.create({
     width: 30,
     top: 10,
     borderRadius: 30,
+    backgroundColor:"white",
   }
 })
 
