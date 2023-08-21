@@ -6,23 +6,26 @@ import { StyleSheet, View, Text, Image, FlatList, TouchableOpacity } from 'react
 import { useSelector, useDispatch } from 'react-redux';
 import { productsSlice } from '../../store/productsSlice';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-
+import { favouritesSlice } from '../../store/favouriteSlice';
 
 const ProductScreens = ({ navigation }) => {
   const products = useSelector(state => state.productss.productsss);
   const dispatch = useDispatch();
-  const [isFavourite, setIsFavourite] = useState({}); 
-  const updateFavorite = (productId) => {
-    setIsFavourite(prevState => {
-      const newState = { ...prevState };
-      if (newState[productId]) {
-        delete newState[productId]; 
-      } else {
-        newState[productId] = true; 
-      }
-      return newState;
-    });
-  };
+  const favourites = useSelector(state => state.favouritee.favouritesss)
+
+  //storig favourite using hooks
+  // const [isFavourite, setIsFavourite] = useState({}); 
+  // const updateFavorite = (productId) => {
+  //   setIsFavourite(prevState => {
+  //     const newState = { ...prevState };
+  //     if (newState[productId]) {
+  //       delete newState[productId]; 
+  //     } else {
+  //       newState[productId] = true; 
+  //     }
+  //     return newState;
+  //   });
+  // };
   return (
     <View style={{ backgroundColor: "white", flex: 1 }}>
       <FlatList
@@ -44,12 +47,13 @@ const ProductScreens = ({ navigation }) => {
                 <Text style={styles.text}>Rs  {item.price}.00</Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.favouriteBtn} onPress={()=> updateFavorite(item.id)}>
-              <View style={{marginTop:6,marginLeft:5}}>
-              {isFavourite[item.id]  ? <FontAwesome5 name={'heart'} solid size={24} color="gray"  />
-                : <FontAwesome5 name={'heart'} size={20} color="gray" />}
+            <TouchableOpacity style={styles.favouriteBtn}
+              onPress={() => dispatch(favouritesSlice.actions.updateFavourite(item.id))}
+            >
+              <View style={{ marginTop: 6, marginLeft: 5 }}>
+                {favourites[item.id] ? <FontAwesome5 name={'heart'} solid size={22} color="#A52A2A" />
+                  : <FontAwesome5 name={'heart'} size={20} color="gray" />}
               </View>
-              
             </TouchableOpacity>
 
           </View>

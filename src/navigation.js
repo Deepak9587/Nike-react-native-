@@ -28,10 +28,6 @@ const Navigation = () => {
               headerRight: () => {
                 return (
                   <View style={{flexDirection:'row'}}>
-                    <TouchableOpacity style={{marginRight:10}}>
-                    <FontAwesome5 name={'heart'} size={20} color="gray"/>
-                    </TouchableOpacity>
-
                     <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => navigation.navigate("shopping cart")}>
                       <Feather name="shopping-cart" size={24} color="gray" />
                       <Text style={{ marginLeft: 5, fontWeight: '500' }}>{numberOfItems}</Text>

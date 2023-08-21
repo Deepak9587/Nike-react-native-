@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { CartSlice } from "../../store/cartSlice";
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import React, { useState } from 'react';
+import { favouritesSlice } from "../../store/favouriteSlice";
 
 
 const ProductDetailsScreen = ({ navigation }) => {
@@ -12,7 +13,8 @@ const ProductDetailsScreen = ({ navigation }) => {
     const product = useSelector(state => state.productss.selectedProduct)
     const { width } = useWindowDimensions();
     const dispatch = useDispatch();
-    const [isFavourite, setIsFavourite] = useState(false);
+    // const [isFavourite, setIsFavourite] = useState(false);
+    const favourites = useSelector(state => state.favouritee.favouritesss)
     return (
         <View>
             <ScrollView>
@@ -53,16 +55,17 @@ const ProductDetailsScreen = ({ navigation }) => {
                     }}>
                     <Text style={styles.buttonText}> Add to Bag</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.button2}
+                <TouchableOpacity style={[styles.button2, { borderColor: favourites[product.id] ? '#A52A2A' : 'grey' }]}
                     onPress={() => {
-                        setIsFavourite(!isFavourite);
+                        // setIsFavourite(!isFavourite);
+                        dispatch(favouritesSlice.actions.updateFavourite(product.id))
                     }}
                 >
-                    <View style={{ flexDirection: "row" ,alignSelf:'center'}}>
+                    <View style={{ flexDirection: "row", alignSelf: 'center' }}>
                         <Text style={{ color: 'black', fontWeight: '500', fontSize: 20 }}>Favourite </Text>
-                        <View style={{marginTop:4}}>
-                        {isFavourite ? <FontAwesome5 name={'heart'} solid size={24} color="gray"/>
-                            : <FontAwesome5 name={'heart'} size={20} color="gray" />}
+                        <View style={{ marginTop: 4 }}>
+                            {favourites[product.id] ? <FontAwesome5 name={'heart'} solid size={22} color="#A52A2A" />
+                                : <FontAwesome5 name={'heart'} size={20} color="gray" />}
                         </View>
                     </View>
                 </TouchableOpacity>
