@@ -29,6 +29,16 @@ const ProductDetailsScreen = ({ navigation }) => {
                     showsHorizontalScrollIndicator={false}
                     pagingEnabled
                 />
+                <FlatList
+                    data={product?.images}
+                    renderItem={({ item }) => (
+                        <Image
+                            source={{ uri: item }}
+                            style={{ width: 100, height: 100, marginTop: 5, marginLeft: 3 }} />
+                    )}
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                />
 
 
                 <View style={{ padding: 20 }}>
@@ -37,21 +47,25 @@ const ProductDetailsScreen = ({ navigation }) => {
                     <Text style={styles.price}>{product?.price}</Text>
 
                     <Text style={styles.description}>{product?.description}</Text>
-                    <Text style={{ color: 'grey', fontSize: 15 }}>View Product Details </Text>
+                    <Text style={{ color: 'grey', fontSize: 15, color: 'black' }}>View Product Details </Text>
                 </View>
 
-                <View style={{ borderBlockColor: "gray", borderWidth: 1, margin: 10 }} />
-                <TouchableOpacity style={styles.button2}
+                <TouchableOpacity style={[styles.button2,]}
                 // onPress={() => {
                 // }}
                 >
-                    <Text style={{ color: 'black', fontWeight: '500', fontSize: 20 }}>Select Size</Text>
+                    <View style={{ flexDirection: 'row', alignSelf: 'center' }}>
+                        <Text style={{ color: 'black', fontWeight: '500', fontSize: 20, marginRight: 5 }}>Select Size</Text>
+                        <FontAwesome5 name={'chevron-down'} solid size={22} color="black" style={{ marginTop: 4 }} />
+
+                    </View>
+
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.button}
                     onPress={() => {
                         console.log("added in cart");
                         dispatch(CartSlice.actions.addCartItem({ product: product }))
-                        // navigation.navigate("shopping cart")
+                        // navigation.navigate("bags")
                     }}>
                     <Text style={styles.buttonText}> Add to Bag</Text>
                 </TouchableOpacity>
@@ -116,7 +130,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         padding: 15,
         borderRadius: 30,
-        alignItems: 'center',
+
     },
 
     buttonText: {

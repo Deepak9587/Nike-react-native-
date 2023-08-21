@@ -28,9 +28,9 @@ const Navigation = () => {
               headerRight: () => {
                 return (
                   <View style={{flexDirection:'row'}}>
-                    <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => navigation.navigate("shopping cart")}>
+                    <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => navigation.navigate("bags")}>
                       <Feather name="shopping-bag" size={24} color="gray" />
-                      <Text style={{ marginLeft: 3, fontWeight: '500' ,justifyContent:'center'}}>{numberOfItems}</Text>
+                      <Text style={{  fontWeight: '500' ,justifyContent:'center' ,marginTop:-3,fontSize:12}}>{numberOfItems}</Text>
                     </TouchableOpacity>
                   </View>
 
@@ -42,13 +42,13 @@ const Navigation = () => {
           <Stack.Screen options={({ navigation }) => ({
             presentation: 'modal', headerShown: true,
             headerRight: () =>
-              <TouchableOpacity style={{ flexDirection: 'row',}} onPress={() => navigation.navigate("shopping cart")}>
+              <TouchableOpacity style={{ flexDirection: 'row',}} onPress={() => navigation.navigate("bags")}>
                 <Feather name="shopping-bag" size={24} color="gray" />
-                <Text style={{ marginLeft: 3, justifyContent:'center',fontWeight: '500' }}>{numberOfItems}</Text>
+                <Text style={{  justifyContent:'center',fontWeight: '500',marginTop:-3,fontSize:12}}>{numberOfItems}</Text>
               </TouchableOpacity>
           })} name="product details" component={ProductDetailsScreen}
           />
-          <Stack.Screen options={{ headerShown: true }} name="shopping cart" component={ShoppingCart} />
+          <Stack.Screen options={{ headerShown: true }} name="bags" component={ShoppingCart} />
 
 
         </Stack.Navigator>

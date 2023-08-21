@@ -6,11 +6,12 @@ import CartListItem from "../../components/CartListItem"
 import { useSelector } from 'react-redux';
 import { selectDeliveryPrice, selectSubTotal, selectTotal } from "../../store/cartSlice";
 
+import Feather from "react-native-vector-icons/Feather";
 
 const ShoppingCartTotal = () => {
-    const subTotal=useSelector(selectSubTotal)
-    const deliveryfee= useSelector(selectDeliveryPrice)
-    const total=useSelector(selectTotal);
+    const subTotal = useSelector(selectSubTotal)
+    const deliveryfee = useSelector(selectDeliveryPrice)
+    const total = useSelector(selectTotal);
     return (
         <View style={styles.totalContainer}>
             <View style={styles.row}>
@@ -26,7 +27,7 @@ const ShoppingCartTotal = () => {
                 <Text style={styles.textBold}>Rs {total}.00</Text>
             </View>
             <View>
-            <Text style={styles.textBold}>(incl. of taxes)</Text>
+                <Text style={{ fontSize: 10, fontWeight: '500', color: 'black', marginTop: -4, }}>(incl. of taxes)</Text>
             </View>
         </View>
 
@@ -34,23 +35,47 @@ const ShoppingCartTotal = () => {
 }
 const ShoppingCart = ({ navigation }) => {
     const cartItems = useSelector(state => state.cart.items)
+    if (Object.keys(cartItems).length != 0) {
+        return (
+            <>
 
-    return (
-        <>
-
-            <FlatList
-                data={cartItems}
-                renderItem={({ item }) => <CartListItem cartItem={item} />}
-                ListFooterComponent={ShoppingCartTotal}
-            />
-            <TouchableOpacity style={styles.button}
-                onPress={() => {
-                    console.log("added in cart");
+                <FlatList
+                    data={cartItems}
+                    renderItem={({ item }) => <CartListItem cartItem={item} />}
+                    ListFooterComponent={ShoppingCartTotal}
+                />
+                <TouchableOpacity style={styles.button}
+                    onPress={() => {
+                        console.log("added in cart");
+                    }}>
+                    <Text style={styles.buttonText}>Checkout</Text>
+                </TouchableOpacity>
+            </>
+        )
+    }
+    else {
+        return (
+            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                <View style={{
+                    height: 70, width: 70, borderColor: 'gray',
+                    borderWidth: 2, borderRadius: 35, alignItems: 'center', justifyContent: 'center',
+                    marginBottom:5
                 }}>
-                <Text style={styles.buttonText}>Checkout</Text>
-            </TouchableOpacity>
-        </>
-    )
+                    <Feather name="shopping-bag" size={24} color="gray" style={{ position: 'absolute' }} />
+                </View>
+                <Text  style={styles.text} >Your Bag is empty.</Text>
+                <Text  style={styles.text}>When you add products. they'll</Text>
+                <Text  style={styles.text}>appear here.</Text>
+                <TouchableOpacity style={styles.button}
+                    onPress={() => {
+                        navigation.navigate('products')
+                    }}>
+                    <Text style={styles.buttonText}>Shop Now</Text>
+                </TouchableOpacity>
+            </View>
+        )
+    }
+
 
 
 }

@@ -1,4 +1,4 @@
-import { createSlice ,createSelector } from '@reduxjs/toolkit'
+import { createSlice, createSelector } from '@reduxjs/toolkit'
 
 
 const initialState = {
@@ -37,7 +37,7 @@ export const CartSlice = createSlice({
                 cartItem.quantity += amount
             }
             if (cartItem.quantity <= 0) {
-                // then we need to remove that item section from shopping cart
+                // then we need to remove thsat item section from shopping cart
                 state.items = state.items.filter((item) => item !== cartItem)
             }
 
@@ -45,25 +45,25 @@ export const CartSlice = createSlice({
     }
 
 })
-export const selectedNumberOfItems = (state) =>{
-//  state.cart.items.length;                     // is only giving the no. of different shoes you added in cart
-return state.cart.items.reduce((totalQuantity, item) => totalQuantity +  item.quantity, 0);   // it is showing the overall cart quantity 
+export const selectedNumberOfItems = (state) => {
+    //  state.cart.items.length;                     // is only giving the no. of different shoes you added in cart
+    return state.cart.items.reduce((totalQuantity, item) => totalQuantity + item.quantity, 0);   // it is showing the overall cart quantity 
 
 }
 export const selectSubTotal = (state) =>
     state.cart.items.reduce((sum, cartItem) => sum + cartItem.product.price * cartItem.quantity, 0); // here reduce is a javascript function , not a redux reducer
 
-const cartSelector=(state)=> state.cart;
+const cartSelector = (state) => state.cart;
 // now we need to add deleviry where we need here or depend on above function( selectSubTotal ,cartSelector)in this same file. so now we 
 // need redux toolkit function createSeleceter()
 export const selectDeliveryPrice = createSelector(
     cartSelector,
     selectSubTotal,
-     (cart,subtotal) =>  (subtotal >cart.freeDeliveryFrom ? 0 : cart.deliveryFee)  
+    (cart, subtotal) => (subtotal > cart.freeDeliveryFrom ? 0 : cart.deliveryFee)
 );
 
-export const selectTotal=createSelector(
+export const selectTotal = createSelector(
     selectSubTotal,
     selectDeliveryPrice,
-    (subtotal,delivery)=> subtotal+ delivery
+    (subtotal, delivery) => subtotal + delivery
 )

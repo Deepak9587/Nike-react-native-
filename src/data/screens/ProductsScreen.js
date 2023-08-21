@@ -51,7 +51,7 @@ const ProductScreens = ({ navigation }) => {
               onPress={() => dispatch(favouritesSlice.actions.updateFavourite(item.id))}
             >
               <View style={{ marginTop: 6, marginLeft: 5,}}>
-                {favourites[item.id] ? <FontAwesome5 name={'heart'} solid size={22} color="#A52A2A" />
+                {favourites[item.id] ? <FontAwesome5 name={'heart'} solid size={20} color="#A52A2A" />
                   : <FontAwesome5 name={'heart'} size={20} color="gray" />}
               </View>
             </TouchableOpacity>
